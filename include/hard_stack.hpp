@@ -18,10 +18,12 @@ class Stack {
   };
   const T& head() const { return m_memp[m_head + 1]; };
   T pop() {
-    if (m_stackSize == 0){
+    if (m_stackSize == 0) {
       throw "Stack is empty";
     }
-    return m_mempp[--m_head]; };
+    return m_mempp[--m_head];
+  };
+  ~Stack() { delete[] m_memp; }
 
  private:
   T* m_memp;        // start
