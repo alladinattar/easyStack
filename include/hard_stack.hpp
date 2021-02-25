@@ -1,8 +1,24 @@
+#include "cstring"
+#include "iostream"
 template <typename T>
 class Stack {
  public:
+  Stack() : m_memp(new T[16]), m_head(0), m_stackSize(16) {}
+  Stack(Stack&&){};
   template <typename... Args>
-  void push_emplace(Args&&... value);
+  void push_emplace(Args&&... value) {
+    if (m_head == m_stackSize) {
+      T* tmp = new T[m_stackSize * 2];
+      if (tmp != nullptr) {
+        std::memcpy(tmp, m_memp, m_stackSize * sizeof(T));
+        m_stackSize = m_stackSize * 2;
+      } else {
+        throw "No memory for element";
+      }
+    }
+    m_memp[m_head] = T(value...);
+    m_head += 1;
+  }
   void push(T&& value) {
     if (m_head == m_stackSize) {
       T* tmp = new T[m_stackSize * 2];
@@ -21,7 +37,7 @@ class Stack {
     if (m_stackSize == 0) {
       throw "Stack is empty";
     }
-    return m_mempp[--m_head];
+    return m_memp[--m_head];
   };
   ~Stack() { delete[] m_memp; }
 
