@@ -4,7 +4,6 @@
 #ifndef INCLUDE_HEADER_HPP_
 #define INCLUDE_HEADER_HPP_
 
-
 template <typename T>
 class Stack {
  public:
@@ -39,7 +38,8 @@ class Stack {
     m_head += 1;
   };
   void pop() { m_head -= 1; };
-  const T& head() const { return m_memp[m_head+1]; };
+  const T& head() const { return m_memp[m_head + 1]; };
+  ~Stack() { delete[] m_memp; }
 
  private:
   T* m_memp;        // start
