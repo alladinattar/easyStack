@@ -2,7 +2,7 @@
 
 int main(){
 
-  Stack stack = Stack<int>();
+  HStack stack = HStack<int>();
   for (int i=0;i<31;++i){
     stack.push(std::move(i));
   }

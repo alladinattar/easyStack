@@ -1,10 +1,15 @@
 #include "cstring"
 #include "iostream"
 template <typename T>
-class Stack {
+class HStack {
  public:
-  Stack() : m_memp(new T[16]), m_head(0), m_stackSize(16) {}
-  Stack(Stack&&){};
+  HStack() : m_memp(new T[16]), m_head(0), m_stackSize(16) {}
+  HStack(HStack&& stack){
+    m_head = stack.m_head;
+    m_memp = stack.m_memp;
+    m_stackSize = stack.m_stackSize;
+    stack.m_memp = nullptr;
+  };
   template <typename... Args>
   void push_emplace(Args&&... value) {
     if (m_head == m_stackSize) {
@@ -25,6 +30,7 @@ class Stack {
       if (tmp != nullptr) {
         std::memcpy(tmp, m_memp, m_stackSize * sizeof(T));
         m_stackSize = m_stackSize * 2;
+        m_memp = tmp;
       } else {
         throw "No memory for element";
       }
@@ -32,14 +38,19 @@ class Stack {
     m_memp[m_head] = std::move(value);
     m_head += 1;
   };
-  const T& head() const { return m_memp[m_head + 1]; };
+  const T& head() const {
+    if (m_head == 0) {
+      throw std::out_of_range{"Stack is empty"};
+    }
+    return m_memp[m_head - 1];
+  };
   T pop() {
-    if (m_stackSize == 0) {
-      throw "Stack is empty";
+    if (m_head == 0) {
+      throw std::out_of_range{"Empty array"};
     }
     return m_memp[--m_head];
   };
-  ~Stack() { delete[] m_memp; }
+  ~HStack() { delete[] m_memp; }
 
  private:
   T* m_memp;        // start

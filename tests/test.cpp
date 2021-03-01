@@ -3,6 +3,7 @@
 #include <gtest/gtest.h>
 #include "simple_stack.hpp"
 #include "iostream"
+#include "hard_stack.hpp"
 
 
 TEST(simpleStack, constrWithNoArgument) {
@@ -47,5 +48,65 @@ TEST(simpleStack, pop) {
   ASSERT_EQ(stackObj.head(), 3);
 }
 
+TEST(simpleStack, popEmpty) {
+  Stack<int> stackObj;
+  ASSERT_THROW(stackObj.pop(), std::out_of_range);
+}
 
+TEST(simpleStack, headEmpty) {
+  Stack<int> stackObj;
+  ASSERT_THROW(stackObj.head(), std::out_of_range);
+}
 
+TEST(simpleStack, stackExpansion) {
+  HStack<int> stackObj;
+  for (int i=0;i<30;++i){
+    stackObj.push(std::move(i));
+  }
+  ASSERT_EQ(stackObj.head(), 29);
+}
+
+TEST(hardStack, pushEmplace) {
+  HStack<int> stackObj;
+  stackObj.push_emplace(4);
+  ASSERT_EQ(stackObj.head(), 4);
+}
+
+TEST(hardStack, push) {
+  HStack<int> stackObj;
+  stackObj.push(9);
+  ASSERT_EQ(stackObj.head(), 9);
+}
+
+TEST(hardStack, pop) {
+  HStack<int> stackObj;
+  stackObj.push(9);
+  stackObj.push(4);
+  stackObj.pop();
+  ASSERT_EQ(stackObj.head(), 9);
+}
+
+TEST(hardStack, headEmpty) {
+  HStack<int> stackObj;
+  ASSERT_THROW(stackObj.head(), std::out_of_range);
+}
+
+TEST(hardStack, popEmptyStack) {
+  HStack<int> stackObj;
+  ASSERT_THROW(stackObj.pop(), std::out_of_range);
+}
+
+TEST(hardStack, stackExpansion) {
+  HStack<int> stackObj;
+  for (int i=0;i<31;++i){
+    stackObj.push(std::move(i));
+  }
+  ASSERT_EQ(stackObj.head(), 30);
+}
+
+TEST(hardStack, constr) {
+  HStack<int> stackObj;
+  stackObj.push(8);
+  HStack<int> stack = HStack(std::move(stackObj));
+  ASSERT_EQ(stack.head(), 8);
+}
