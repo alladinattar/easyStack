@@ -8,8 +8,13 @@ template <typename T>
 class Stack {
  public:
   Stack() : m_memp(new T[16]), m_head(0), m_stackSize(16) {}
-  Stack(Stack&&){};
-  Stack(const Stack&) = delete;
+  Stack(Stack&& stack){
+      m_head = stack.m_head;
+      m_memp = stack.m_memp;
+      m_stackSize = stack.m_stackSize;
+      stack.m_memp = nullptr;
+  };
+  Stack(const Stack&) = delete;//test
 
   void push(T&& value) {
     if (m_head == m_stackSize) {
@@ -21,9 +26,11 @@ class Stack {
         throw "No memory for element";
       }
     }
-    m_memp[m_head] = std::move(value);
+    m_memp[m_head] = value;
     m_head += 1;
   };
+
+
   void push(const T& value) {
     if (m_head == m_stackSize) {
       T* tmp = new T[m_stackSize * 2];
@@ -38,12 +45,12 @@ class Stack {
     m_head += 1;
   };
   void pop() { m_head -= 1; };
-  const T& head() const { return m_memp[m_head + 1]; };
+  const T& head() const { return m_memp[m_head-1]; };
   ~Stack() { delete[] m_memp; }
 
  private:
   T* m_memp;        // start
-  int m_head;       // index peak of stack
+  int m_head;       // index last element of stack
   int m_stackSize;  //
 };
 
