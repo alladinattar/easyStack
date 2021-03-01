@@ -45,14 +45,15 @@ class HStack {
     if (m_head == 0) {
       throw std::out_of_range{"Stack is empty"};
     }
-    m_head-=1;
+    
     return m_memp[m_head - 1];
   };
   T pop() {
     if (m_head == 0) {
       throw std::out_of_range{"Empty array"};
     }
-    return m_memp[--m_head];
+    m_head-=1;
+    return m_memp[m_head];
   };
   ~HStack() { delete[] m_memp; }
 
