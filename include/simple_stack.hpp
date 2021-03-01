@@ -24,6 +24,7 @@ class Stack {
       if (tmp != nullptr) {
         std::memcpy(tmp, m_memp, m_stackSize * sizeof(T));
         m_stackSize = m_stackSize * 2;
+        m_memp = tmp;
       } else {
         throw "No memory for element";
       }
