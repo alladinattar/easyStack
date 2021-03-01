@@ -58,13 +58,13 @@ TEST(simpleStack, headEmpty) {
   ASSERT_THROW(stackObj.head(), std::out_of_range);
 }
 
-/*TEST(simpleStack, stackExpansion) {
+TEST(simpleStack, stackExpansion) {
   Stack<int> stackObj;
   for (int i=0;i<30;++i){
     stackObj.push(std::move(i));
   }
   ASSERT_EQ(stackObj.head(), 29);
-}*/
+}
 
 TEST(hardStack, pushEmplace) {
   HStack<int> stackObj;
@@ -96,13 +96,13 @@ TEST(hardStack, popEmptyStack) {
   ASSERT_THROW(stackObj.pop(), std::out_of_range);
 }
 
-/*TEST(hardStack, stackExpansion) {
+TEST(hardStack, stackExpansion) {
   HStack<int> stackObj;
   for (int i=0;i<31;++i){
     stackObj.push(std::move(i));
   }
   ASSERT_EQ(stackObj.head(), 30);
-}*/
+}
 
 TEST(hardStack, constr) {
   HStack<int> stackObj;

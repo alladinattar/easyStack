@@ -17,6 +17,8 @@ class HStack {
       if (tmp != nullptr) {
         std::memcpy(tmp, m_memp, m_stackSize * sizeof(T));
         m_stackSize = m_stackSize * 2;
+        delete[]m_memp;
+        m_memp = tmp;
       } else {
         throw "No memory for element";
       }
@@ -30,6 +32,7 @@ class HStack {
       if (tmp != nullptr) {
         std::memcpy(tmp, m_memp, m_stackSize * sizeof(T));
         m_stackSize = m_stackSize * 2;
+        delete[]m_memp;
         m_memp = tmp;
       } else {
         throw "No memory for element";
