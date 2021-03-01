@@ -59,7 +59,7 @@ TEST(simpleStack, headEmpty) {
 }
 
 TEST(simpleStack, stackExpansion) {
-  HStack<int> stackObj;
+  Stack<int> stackObj;
   for (int i=0;i<30;++i){
     stackObj.push(std::move(i));
   }
