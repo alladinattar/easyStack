@@ -64,9 +64,9 @@ class Stack {
   ~Stack() { delete[] m_memp; }
 
  private:
-  T* m_memp;        // start
-  int m_head;       // index last element of stack
-  int m_stackSize;  //
+  T* m_memp;       
+  int m_head;      
+  int m_stackSize;  
 };
 
 #endif  // INCLUDE_HEADER_HPP_
