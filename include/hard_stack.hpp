@@ -58,7 +58,7 @@ class HStack {
   ~HStack() { delete[] m_memp; }
 
  private:
-  T* m_memp;        // start
-  int m_head;       // index peak of stack
-  int m_stackSize;  //
+  T* m_memp;       
+  int m_head;       
+  int m_stackSize;  
 };
